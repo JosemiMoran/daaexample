@@ -12,7 +12,7 @@ public class Pet {
     private int petId;
     private String name;
     private String type;
-    private int personId;
+    private int ownerId;
 
     // Constructor needed for the JSON conversion
     Pet() {}
@@ -23,13 +23,13 @@ public class Pet {
      * @param petId identifier of the pet.
      * @param name name of the pet.
      * @param type type of the pet.
-     * @param personId id of the owner.
+     * @param ownerId id of the owner.
      */
-    public Pet(int petId, String name, String type, int personId) {
+    public Pet(int petId, String name, String type, int ownerId) {
         this.petId = petId;
         this.setName(name);
         this.setType(type);
-        this.personId = personId;
+        this.ownerId = ownerId;
     }
 
     /**
@@ -46,8 +46,8 @@ public class Pet {
      *
      * @return the identifier of the owner.
      */
-    public int getPersonId() {
-        return personId;
+    public int getOwnerId() {
+        return ownerId;
     }
 
     /**
