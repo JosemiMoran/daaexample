@@ -168,7 +168,7 @@ public class PetsDAO extends DAO {
     public void delete(int id)
             throws DAOException, IllegalArgumentException {
         try (final Connection conn = this.getConnection()) {
-            final String query = "DELETE FROM pets WHERE ownerId=?";
+            final String query = "DELETE FROM pets WHERE id=?";
 
             try (final PreparedStatement statement = conn.prepareStatement(query)) {
                 statement.setInt(1, id);
