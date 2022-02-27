@@ -1,6 +1,6 @@
 var PeopleView = (function() {
+
 	var dao;
-	
 	// Referencia a this que permite acceder a las funciones públicas desde las funciones de jQuery.
 	var self;
 	
@@ -8,6 +8,7 @@ var PeopleView = (function() {
 	var listId = 'people-list';
 	var formQuery = '#' + formId;
 	var listQuery = '#' + listId;
+
 	
 	function PeopleView(peopleDao, formContainerId, listContainerId) {
 		dao = peopleDao;
@@ -17,6 +18,7 @@ var PeopleView = (function() {
 		insertPeopleList($('#' + listContainerId));
 		
 		this.init = function() {
+			daoList = dao.listPeople;
 			dao.listPeople(function(people) {
 				$.each(people, function(key, person) {
 					appendToTable(person);
@@ -130,9 +132,10 @@ var PeopleView = (function() {
 			'<table id="' + listId + '" class="table">\
 				<thead>\
 					<tr class="row">\
-						<th class="col-sm-4">Nombre</th>\
-						<th class="col-sm-5">Apellido</th>\
-						<th class="col-sm-3">&nbsp;</th>\
+						<th class="col-sm-3">Nombre</th>\
+						<th class="col-sm-4">Apellido</th>\
+						<th class="col-sm-2">&nbsp;</th>\
+						<th class="col-sm-3"><a id="petsView" class="petsView btn btn-primary" href="">Ver mascotas</a>\</th>\
 					</tr>\
 				</thead>\
 				<tbody>\
@@ -153,7 +156,7 @@ var PeopleView = (function() {
 						<input name="surname" type="text" value="" placeholder="Apellido" class="form-control" required/>\
 					</div>\
 					<div class="col-sm-3">\
-						<input id="btnSubmit" type="submit" value="Crear" class="btn btn-primary" />\
+						<input id="btnSubmit" type="submit" value="Crear" class="btn btn-success" />\
 						<input id="btnClear" type="reset" value="Limpiar" class="btn" />\
 					</div>\
 				</div>\
@@ -163,12 +166,13 @@ var PeopleView = (function() {
 
 	var createPersonRow = function(person) {
 		return '<tr id="person-'+ person.id +'" class="row">\
-			<td class="name col-sm-4">' + person.name + '</td>\
-			<td class="surname col-sm-5">' + person.surname + '</td>\
-			<td class="col-sm-3">\
-				<a class="edit btn btn-primary" href="#">Editar</a>\
-				<a class="delete btn btn-warning" href="#">Eliminar</a>\
+			<td class="name col-sm-3">' + person.name + '</td>\
+			<td class="surname col-sm-4">' + person.surname + '</td>\
+			<td class="col-sm-2">\
+				<a class="edit btn btn-warning" href="#">Editar</a>\
+				<a class="delete btn btn-danger" href="#">Eliminar</a>\
 			</td>\
+			\<td class="empty col-sm-3">&nbsp;</td>\
 		</tr>';
 	};
 
@@ -194,3 +198,11 @@ var PeopleView = (function() {
 	
 	return PeopleView;
 })();
+
+function goPets(){
+	$.ajax({
+		url: 'rest/pets',
+		type: 'GET',
+	});
+	window.location = 'pets.html';
+}
